@@ -36,7 +36,6 @@ echo head(array('title' => $title, 'bodyclass' => 'items show' .  (($hasImages) 
     </div>
 <?php endif; ?>
 
-<body oncontextmenu="return false;">
 <div class="item-metadata">
     <nav>
     <ul class="item-pagination navigation">
@@ -65,7 +64,7 @@ echo head(array('title' => $title, 'bodyclass' => 'items show' .  (($hasImages) 
     <?php endif;?>
 
     <?php if (count($nonImages) > 0): ?>
-    <div id="other-media" class="element">
+    <div id="other-media" class="element" oncontextmenu="return false;">
         <h3>Other Media</h3>
         <?php foreach ($nonImages as $nonImage): ?>
         <?php $mimeType = $nonImage->mime_type; ?>
