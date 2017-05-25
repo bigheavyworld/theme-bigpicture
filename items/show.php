@@ -36,6 +36,7 @@ echo head(array('title' => $title, 'bodyclass' => 'items show' .  (($hasImages) 
     </div>
 <?php endif; ?>
 
+<body oncontextmenu="return false;">
 <div class="item-metadata">
     <nav>
     <ul class="item-pagination navigation">
@@ -67,7 +68,15 @@ echo head(array('title' => $title, 'bodyclass' => 'items show' .  (($hasImages) 
     <div id="other-media" class="element">
         <h3>Other Media</h3>
         <?php foreach ($nonImages as $nonImage): ?>
-        <div class="element-text"><a href="<?php echo file_display_url($nonImage, 'original'); ?>"><?php echo metadata($nonImage, 'display_title'); ?> - <?php echo $nonImage->mime_type; ?></a></div>
+        <?php $mimeType = $nonImage->mime_type; ?>
+        <?php if (strpos($mimeType, 'audio') !== false): ?>
+          <div class="element-text"><?php echo metadata($nonImage, 'display_title'); ?> - <?php echo $nonImage->mime_type; ?></div>
+          <audio controls controlsList="nodownload">
+             <source src="<?php echo file_display_url($nonImage, 'original'); ?>" type="<?php echo $mimeType;?>">
+          </audio>
+        <?php else: ?>
+          <div class="element-text"><a href="<?php echo file_display_url($nonImage, 'original'); ?>"><?php echo metadata($nonImage, 'display_title'); ?> - <?php echo $nonImage->mime_type; ?></a></div>
+        <?php endif; ?>
         <?php endforeach; ?>
     </div>
     <?php endif; ?>
